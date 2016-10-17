@@ -21,6 +21,15 @@ var server = restify.createServer();
 // Handle Bot Framework messages
 server.post('/api/messages', bot.verifyBotFramework(), bot.listen());
 
+server.get('/api/creds', function (req, res, next) {
+    var creds = {
+        appId: process.env.BOTFRAMEWORK_APPID,
+        appSecret: process.env.BOTFRAMEWORK_APPSECRET
+    };
+ res.send(users)
+});
+
+
 // Serve a static web page
 server.get(/.*/, restify.serveStatic({
 	'directory': '.',
