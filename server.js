@@ -26,7 +26,7 @@ server.get('/api/creds', function (req, res, next) {
         appId: process.env.BOTFRAMEWORK_APPID,
         appSecret: process.env.BOTFRAMEWORK_APPSECRET
     };
- res.send(users)
+ res.send(creds)
 });
 
 
