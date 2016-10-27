@@ -7,6 +7,14 @@ var botConnectorOptions = {
     appSecret: process.env.BOTFRAMEWORK_APPSECRET 
 };
 
+// Setup Restify Server
+var server = restify.createServer();
+
+// Setup Restify client
+var client = restify.createJsonClient({
+    url: 'https://machinelearningapi.azurewebsites.net'
+});
+
 // Create bot
 var bot = new builder.BotConnectorBot(botConnectorOptions);
 bot.add('/', function (session) {
@@ -14,22 +22,13 @@ bot.add('/', function (session) {
     //respond with user's message
     //session.send("You really said " + session.message.text);
 
-    client.get('api/product/search/Lager', function(err, req, res, obj) {
+    client.get('/api/product/search/' + session.message.text, function(err, req, res, obj) {
         assert.ifError(err);
-        session.send(err);
-        //session.send(JSON.stringify(obj));
+        session.send(JSON.stringify(obj));
     });
 
     //session.send(JSON.stringify(client));
 
-});
-
-// Setup Restify Server
-var server = restify.createServer();
-
-// Setup Restify client
-var client = restify.createJsonClient({
-    url: 'http://machinelearningapi.azurewebsites.net'
 });
 
 // Handle Bot Framework messages
@@ -41,6 +40,15 @@ server.get('/api/creds', function (req, res, next) {
         appSecret: process.env.BOTFRAMEWORK_APPSECRET
     };
  res.send(creds)
+});
+
+server.get('/api/test', function (req, res, next) {
+    client.get('/api/product/search/Lager', function(err, req, res, obj) {
+        assert.ifError(err);
+        //res.send(err);
+        res.send(JSON.stringify(obj));
+    });
+ //res.send(creds)
 });
 
 
