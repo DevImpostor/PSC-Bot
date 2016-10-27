@@ -1,10 +1,10 @@
 var restify = require('restify');
-var builder = require('../../core/');
+var builder = require('botbuilder');
 
 // Get secrets from server environment
 var botConnectorOptions = { 
     appId: process.env.BOTFRAMEWORK_APPID, 
-    appPassword: process.env.BOTFRAMEWORK_APPSECRET 
+    appSecret: process.env.BOTFRAMEWORK_APPSECRET 
 };
 
 // Setup Restify Server
@@ -16,7 +16,7 @@ var client = restify.createJsonClient({
 });
 
 // Create bot
-var bot = new builder.UniversalBot(botConnectorOptions);
+var bot = new builder.BotConnectorBot(botConnectorOptions);
 bot.add('/', function (session) {
     
     session.sendTyping();
