@@ -1,10 +1,10 @@
 var restify = require('restify');
-var builder = require('botbuilder');
+var builder = require('../../core/');
 
 // Get secrets from server environment
 var botConnectorOptions = { 
     appId: process.env.BOTFRAMEWORK_APPID, 
-    appSecret: process.env.BOTFRAMEWORK_APPSECRET 
+    appPassword: process.env.BOTFRAMEWORK_APPSECRET 
 };
 
 // Setup Restify Server
@@ -16,12 +16,9 @@ var client = restify.createJsonClient({
 });
 
 // Create bot
-var bot = new builder.BotConnectorBot(botConnectorOptions);
+var bot = new builder.UniversalBot(botConnectorOptions);
 bot.add('/', function (session) {
     
-    //respond with user's message
-    //session.send("You really said " + session.message.text);
-    //session.send("Looking up products (" + session.message.text + ")...")
     session.sendTyping();
     client.get('/api/product/search/' + session.message.text, function(err, req, res, obj) {
         
