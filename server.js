@@ -25,7 +25,7 @@ bot.add('/', function (session) {
     session.sendTyping();
     client.get('/api/product/search/' + session.message.text, function(err, req, res, obj) {
         
-        if (err == null) {
+        if (err != null) {
             session.endDialog("Sorry, I'm having an issue connecting to the project API");
             return;
         }
