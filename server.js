@@ -12,7 +12,7 @@ var server = restify.createServer();
 
 // Setup Restify client
 var client = restify.createJsonClient({
-    url: 'http://machinelearningapi.azurewebsites.net'
+    url: 'https://machinelearningapi.azurewebsites.net'
 });
 
 // Create bot
