@@ -47,8 +47,8 @@ bot.add('/', function (session) {
             .textFormat(builder.TextFormat.xml)
             .attachments([
                 new builder.HeroCard(session)
-                    .title("Search Results")
-                    .subtitle("I found " + obj.length + " products...")
+                    .title("I found " + obj.length + " products...")
+                    .subtitle("Which one are you interesting in?")
                     .text(productListDisplay)
                     // .images([
                     //     builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Seattlenighttimequeenanne.jpg/320px-Seattlenighttimequeenanne.jpg")
