@@ -41,7 +41,7 @@ bot.add('/', function (session) {
             productListDisplay += element.ProductName + '<br />';
         }, this);
 
-
+        productListDisplay.trim('<br />');
 
         var msg = new builder.Message(session)
             .textFormat(builder.TextFormat.xml)
