@@ -12,11 +12,18 @@ var bot = new builder.BotConnectorBot(botConnectorOptions);
 bot.add('/', function (session) {
     
     //respond with user's message
-    session.send("You really said " + session.message.text);
+    //session.send("You really said " + session.message.text);
+    session.send(JSON.stringify(getProducts("Lager")));
+
 });
 
 // Setup Restify Server
 var server = restify.createServer();
+
+// Setup Restify client
+var client = restify.createJsonClient({
+    url: 'http://machinelearningapi.azurewebsites.net'
+});
 
 // Handle Bot Framework messages
 server.post('/api/messages', bot.verifyBotFramework(), bot.listen());
@@ -39,3 +46,10 @@ server.get(/.*/, restify.serveStatic({
 server.listen(process.env.port || 3978, function () {
     console.log('%s listening to %s', server.name, server.url); 
 });
+
+var getProducts = function(searchText) {
+    client.get('api/product/search/'+ searchText, function(err, req, res, obj) {
+        assert.ifError(err);
+        return obj;
+    });
+};
