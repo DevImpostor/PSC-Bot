@@ -43,20 +43,20 @@ bot.add('/', function (session) {
 
 
 
-        var msg = new builder.Message(session)
-            .textFormat(builder.TextFormat.xml)
-            .attachments([
-                new builder.HeroCard(session)
-                    .title("Search Results")
-                    .subtitle("I found " + obj.length + " products...")
-                    .text(productListDisplay)
-                    // .images([
-                    //     builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Seattlenighttimequeenanne.jpg/320px-Seattlenighttimequeenanne.jpg")
-                    // ])
-                    // .tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
-            ]);
+        // var msg = new builder.Message(session)
+        //     .textFormat(builder.TextFormat.xml)
+        //     .attachments([
+        //         new builder.HeroCard(session)
+        //             .title("Search Results")
+        //             .subtitle("I found " + obj.length + " products...")
+        //             .text(productListDisplay)
+        //             // .images([
+        //             //     builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Seattlenighttimequeenanne.jpg/320px-Seattlenighttimequeenanne.jpg")
+        //             // ])
+        //             // .tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
+        //     ]);
 
-        session.endDialog(msg);
+        session.endDialog(productListDisplay);
     });
 
 });
