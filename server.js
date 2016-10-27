@@ -16,7 +16,8 @@ bot.add('/', function (session) {
 
     client.get('api/product/search/Lager', function(err, req, res, obj) {
         assert.ifError(err);
-        session.send(JSON.stringify(obj));
+        session.send(err);
+        //session.send(JSON.stringify(obj));
     });
 
     //session.send(JSON.stringify(client));
