@@ -21,15 +21,23 @@ bot.add('/', function (session) {
     
     //respond with user's message
     //session.send("You really said " + session.message.text);
-    session.send("Looking up products (" + session.message.text + ")...")
+    //session.send("Looking up products (" + session.message.text + ")...")
     session.sendTyping();
-
     client.get('/api/product/search/' + session.message.text, function(err, req, res, obj) {
-        session.send(JSON.stringify(obj));
-        assert.ifError(err);
-        session.endDialog(JSON.stringify(obj));
+        
+        if (err == null) {
+            session.endDialog("Sorry, I'm having an issue connecting to the project API");
+            return;
+        }
+
+        session.send("I found " + obj.length + " products...");
+        obj.forEach(function(element) {
+
+            session.send(obj.ProductName);
+        }, this);
+
+        session.endDialog("All Done!");
     });
-    //session.send(JSON.stringify(client));
 
 });
 
