@@ -56,7 +56,7 @@ bot.add('/', function (session) {
                     // .tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
             ]);
 
-        session.endDialog(productListDisplay);
+        session.endDialog(msg);
     });
 
 });
