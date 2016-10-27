@@ -21,6 +21,7 @@ bot.add('/', function (session) {
     
     //respond with user's message
     //session.send("You really said " + session.message.text);
+    session.send("Looking up products...")
     session.sendTyping();
 
     client.get('/api/product/search/' + session.message.text, function(err, req, res, obj) {
