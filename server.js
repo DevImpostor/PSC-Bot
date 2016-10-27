@@ -23,7 +23,7 @@ var bot = new builder.BotConnectorBot(botConnectorOptions);
 var model = process.env.model || 'https://api.projectoxford.ai/luis/v1/application?id=ec37e61b-3ece-4ae5-a915-b0e82fa39fff&subscription-key=49aaa290020f498eb01c5c4013e1128f&q=';
 var recognizer = new builder.LuisRecognizer(model);
 var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
-bot.dialog('/', dialog);
+//bot.dialog('/', dialog);
 
 
 bot.add('/', function (session) {
@@ -36,9 +36,9 @@ bot.add('/', function (session) {
             return;
         }
 
-        var productListDisplay = "";
+        var productListDisplay = '';
         obj.forEach(function(element) {
-            productListDisplay += element.ProductName + "<br />";
+            productListDisplay += element.ProductName + '<br />';
         }, this);
 
 
