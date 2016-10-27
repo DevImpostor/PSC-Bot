@@ -25,7 +25,7 @@ bot.add('/', function (session) {
     session.sendTyping();
 
     client.get('/api/product/search/' + session.message.text, function(err, req, res, obj) {
-        session.send(JSON.stringify(err));
+        session.send(JSON.stringify(obj));
         assert.ifError(err);
         session.endDialog(JSON.stringify(obj));
     });
