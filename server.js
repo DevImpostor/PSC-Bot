@@ -32,8 +32,7 @@ bot.add('/', function (session) {
 
         session.send("I found " + obj.length + " products...");
         obj.forEach(function(element) {
-
-            session.send(obj.ProductName);
+            session.send(element.ProductName);
         }, this);
 
         session.endDialog("All Done!");
