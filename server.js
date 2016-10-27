@@ -13,7 +13,13 @@ bot.add('/', function (session) {
     
     //respond with user's message
     //session.send("You really said " + session.message.text);
-    session.send(JSON.stringify(client));
+
+    client.get('api/product/search/Lager', function(err, req, res, obj) {
+        assert.ifError(err);
+         session.send(obj);
+    });
+
+    //session.send(JSON.stringify(client));
 
 });
 
