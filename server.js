@@ -10,6 +10,7 @@ var botConnectorOptions = {
 // Setup Restify Server
 var server = restify.createServer();
 
+
 // Setup Restify client
 var client = restify.createJsonClient({
     url: 'https://machinelearningapi.azurewebsites.net'
@@ -17,6 +18,14 @@ var client = restify.createJsonClient({
 
 // Create bot
 var bot = new builder.BotConnectorBot(botConnectorOptions);
+
+// Create LUIS recognizer that points at our model and add it as the root '/' dialog for our Cortana Bot.
+var model = process.env.model || 'https://api.projectoxford.ai/luis/v1/application?id=ec37e61b-3ece-4ae5-a915-b0e82fa39fff&subscription-key=49aaa290020f498eb01c5c4013e1128f&q=';
+var recognizer = new builder.LuisRecognizer(model);
+var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
+bot.dialog('/', dialog);
+
+
 bot.add('/', function (session) {
     
     session.sendTyping();
@@ -27,12 +36,27 @@ bot.add('/', function (session) {
             return;
         }
 
-        session.send("I found " + obj.length + " products...");
+        var productListDisplay = "";
         obj.forEach(function(element) {
-            session.send(element.ProductName);
+            productListDisplay += element.ProductName + "<br />";
         }, this);
 
-        session.endDialog("All Done!");
+
+
+        var msg = new builder.Message(session)
+            .textFormat(builder.TextFormat.xml)
+            .attachments([
+                new builder.HeroCard(session)
+                    .title("Search Results")
+                    .subtitle("I found " + obj.length + " products...")
+                    .text(productListDisplay)
+                    // .images([
+                    //     builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Seattlenighttimequeenanne.jpg/320px-Seattlenighttimequeenanne.jpg")
+                    // ])
+                    // .tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
+            ]);
+
+        session.endDialog(msg);
     });
 
 });
