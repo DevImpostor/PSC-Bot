@@ -57,7 +57,7 @@ bot.add('/', function (session) {
             ]);
         
         if (obj.length === 0) {
-            session.endDialog("Sorry, couldn't find any products.");
+            session.endDialog("Sorry, couldn't find any products. Guy");
         }
         else {
             session.endDialog(msg);
